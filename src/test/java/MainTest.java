@@ -42,19 +42,18 @@ class MainTest {
     void testRecruits_sucess() {
 
         Collection<Person> testPersons = new ArrayList<>();
-        testPersons.add(new Person("Jack", "Evans", 25, Sex.MAN, Education.HIGHER));
+        testPersons.add(new Person("Jack", "Evans", 26, Sex.MAN, Education.HIGHER));
         testPersons.add(new Person("Connor", "Young", 15, Sex.WOMAN, Education.FURTHER));
 
+        Person expectedPerson = new Person("Jack", "Evans", 26, Sex.MAN, Education.HIGHER);
 
-        Person expectedPerson = new Person("Jack", "Evans", 25, Sex.MAN, Education.HIGHER);
+        List<String> expectedPersons = new ArrayList<>();
 
-        List<Person> expectedPersons = new ArrayList<>();
-
-        expectedPersons.add(expectedPerson);
+        expectedPersons.add(expectedPerson.toString());
 
         List<String> result = Main.recruits(testPersons);
 
-        Assertions.assertEquals(expectedPersons.toString(), result.toString());
+        Assertions.assertEquals(expectedPersons, result);
 
 
     }
@@ -69,13 +68,13 @@ class MainTest {
 
         Person expectedPerson = new Person("Jack", "Evans", 25, Sex.MAN, Education.ELEMENTARY);
 
-        List<Person> expectedPersons = new ArrayList<>();
+        List<String> expectedPersons = new ArrayList<>();
 
-        expectedPersons.add(expectedPerson);
+        expectedPersons.add(expectedPerson.toString());
 
         List<String> result = Main.recruits(testPersons);
 
-        Assertions.assertEquals(expectedPersons.toString(), result.toString());
+        Assertions.assertEquals(expectedPersons, result);
 
     }
 
@@ -89,14 +88,31 @@ class MainTest {
 
         Person expectedPerson = new Person("Jack", "Evans", 28, Sex.MAN, Education.HIGHER);
 
-        List<Person> expectedPersons = new ArrayList<>();
+        List<String> expectedPersons = new ArrayList<>();
 
-        expectedPersons.add(expectedPerson);
+        expectedPersons.add(expectedPerson.toString());
 
         List<String> result = Main.employables(testPersons);
 
-        Assertions.assertEquals(expectedPersons.toString(), result.toString());
-
+        Assertions.assertEquals(expectedPersons, result);
     }
 
+    @Test
+    void testEmployables_unsuccess() {
+
+        Collection<Person> testPersons = new ArrayList<>();
+
+        testPersons.add(new Person("Jack", "Evans", 77, Sex.MAN, Education.HIGHER));
+        testPersons.add(new Person("Connor", "Young", 15, Sex.WOMAN, Education.FURTHER));
+
+        Person expectedPerson = new Person("Jack", "Evans", 28, Sex.MAN, Education.HIGHER);
+
+        List<String> expectedPersons = new ArrayList<>();
+
+        expectedPersons.add(expectedPerson.toString());
+
+        List<String> result = Main.employables(testPersons);
+
+        Assertions.assertEquals(expectedPersons, result);
+    }
 }
